@@ -62,7 +62,7 @@
       font-weight: bold;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     h1 {
@@ -181,24 +181,64 @@
     }
 
     .result-badge {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--gold-primary);
-      margin: 12px 0 4px 0;
+      margin: 4px 0;
       font-weight: 800;
     }
 
     .secondary-badge {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
+    /* بخش ویژه عکس دانلودی استوری */
     .export-area {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 12px;
+      background: #161a22;
+      padding: 24px;
+      border-radius: 14px;
       border: 1px solid var(--border-color);
       margin-bottom: 24px;
+      text-align: right;
+    }
+
+    .card-header-brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-app-title {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .brand-badge {
+      background: var(--gold-primary);
+      color: #000;
+      font-weight: bold;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 12px 0 16px 0;
+    }
+
+    .result-meta {
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .result-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .result-desc {
@@ -206,7 +246,7 @@
       line-height: 1.8;
       margin-bottom: 20px;
       text-align: justify;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .compass-wrapper {
@@ -288,6 +328,33 @@
       z-index: 3;
       box-shadow: 0 0 12px var(--gold-primary);
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card-cta-footer {
+      margin-top: 16px;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+
+    .cta-text span, .cta-social span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .cta-text strong, .cta-social strong {
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    .gold-text {
+      color: var(--gold-primary) !important;
     }
 
     .episodes-section {
@@ -429,10 +496,24 @@
     </div>
 
     <div id="result-screen" class="result-card">
+      
+      <!-- کارت قابل خروجی و دانلود عکس -->
       <div id="export-container" class="export-area">
-        <span class="header-tag">نتیجه اختصاصی ایسم‌کست</span>
-        <div id="result-title" class="result-badge"></div>
-        <div id="secondary-title" class="secondary-badge"></div>
+        <div class="card-header-brand">
+          <div class="brand-info">
+            <span class="header-tag">ISMCAST PODCAST</span>
+            <h2 class="card-app-title">پادکست ایسم‌کست | نبرد ایدئولوژی‌ها</h2>
+          </div>
+          <div class="brand-badge">فصل اول</div>
+        </div>
+
+        <hr class="card-divider">
+
+        <div class="result-meta">
+          <span class="result-sub">قطب‌نمای ایدئولوژیک من:</span>
+          <div id="result-title" class="result-badge"></div>
+          <div id="secondary-title" class="secondary-badge"></div>
+        </div>
         
         <div class="compass-wrapper">
           <span class="axis-label label-top">اقتدارگرایی</span>
@@ -452,8 +533,20 @@
         </div>
 
         <p id="result-description" class="result-desc"></p>
+
+        <div class="card-cta-footer">
+          <div class="cta-text">
+            <span>🎧 شنیدن پادکست در کست‌باکس:</span>
+            <strong>IsmCast / ایسم‌کست</strong>
+          </div>
+          <div class="cta-social">
+            <span>اینستاگرام و تلگرام:</span>
+            <strong class="gold-text">@IsmCast</strong>
+          </div>
+        </div>
       </div>
 
+      <!-- دکمه‌های اشتراک گذاری -->
       <div class="share-actions">
         <button class="share-btn" onclick="downloadInstagramStory()">📸 دانلود کارت استوری اینستاگرام</button>
         <button class="share-btn" onclick="shareTelegram()">🚀 اشتراک در تلگرام</button>
@@ -461,6 +554,7 @@
         <button class="share-btn" onclick="copyResultLink()">🔗 کپی متن نتیجه</button>
       </div>
 
+      <!-- پیشنهاد اپیزودها -->
       <div class="episodes-section">
         <div class="episode-recommendation">
           <div class="ep-card-body">
@@ -489,6 +583,7 @@
         </div>
       </div>
 
+      <!-- معرفی قسمت صفرم -->
       <div class="ep-zero-banner">
         <h4>قسمت صفرم: پشت پرده کلمات (معرفی ایسم‌کست)</h4>
         <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">اگر تازه با ایسم‌کست آشنا شده‌اید، شنیدن داستان تولد پادکست از قسمت صفرم بهترین نقطه شروع است.</p>
@@ -502,7 +597,6 @@
   </div>
 
   <script>
-    // سوالات با بردارهای دو محوره x (اقتصاد: ۵- چپ تا ۵+ راست) و y (سیاست: ۵- آزادی/آنارشی تا ۵+ اقتدار)
     const questions = [
       {
         question: "۱. اگر جامعه با بحران شدید اقتصادی و نابرابری مواجه شود، اولویت اصلی دولت باید چه باشد؟",
@@ -677,7 +771,7 @@
     };
 
     let currentQuestion = 0;
-    let userAnswers = []; // ذخیره پاسخ‌ها برای سوال قبلی
+    let userAnswers = [];
     let scores = { socialism: 0, liberalism: 0, fascism: 0, anarchism: 0 };
     let totalX = 0;
     let totalY = 0;
@@ -750,7 +844,6 @@
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').style.display = 'block';
 
-      // مرتب‌سازی مکتب‌ها بر اساس بیشترین امتیاز
       let sortedIsms = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
       let primaryIsm = sortedIsms[0];
       let secondaryIsm = sortedIsms[1];
@@ -762,7 +855,6 @@
       document.getElementById('secondary-title').innerText = `گرایش مکمل شما: ${res2.title.split('/')[0]}`;
       document.getElementById('result-description').innerText = res1.desc;
 
-      // کارت پیشنهاد اول
       document.getElementById('rec-ep1-title').innerText = `🎧 پیشنهاد اصلی: ${res1.epTitle}`;
       document.getElementById('rec-ep1-desc').innerText = res1.epDesc;
       document.getElementById('link1-castbox').href = res1.castbox;
@@ -770,7 +862,6 @@
       img1.src = res1.cover;
       img1.style.display = 'block';
 
-      // کارت پیشنهاد دوم
       document.getElementById('rec-ep2-title').innerText = `💡 پیشنهاد مکمل: ${res2.epTitle}`;
       document.getElementById('rec-ep2-desc').innerText = res2.epDesc;
       document.getElementById('link2-castbox').href = res2.castbox;
@@ -778,7 +869,6 @@
       img2.src = res2.cover;
       img2.style.display = 'block';
 
-      // محاسبه جایگاه دو محوره روی نمودار (نهایت امتیاز ایکس و ایگرگ ۷۵ است)
       const maxRange = 60;
       let normX = Math.max(-1, Math.min(1, totalX / maxRange));
       let normY = Math.max(-1, Math.min(1, totalY / maxRange));
@@ -810,10 +900,15 @@
 
     function downloadInstagramStory() {
       const exportArea = document.getElementById('export-container');
-      html2canvas(exportArea, { backgroundColor: '#161a22' }).then(canvas => {
+      html2canvas(exportArea, {
+        backgroundColor: '#161a22',
+        scale: 2,
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'IsmCast-Compass-Result.png';
-        link.href = canvas.toDataURL();
+        link.download = 'IsmCast-Story-Result.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
       });
     }
