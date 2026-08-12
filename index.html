@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تست قطب‌نما و گرایش ایدئولوژیک | ایسم‌کست (IsmCast)</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <style>
+    :root {
+      --bg-dark: #0d0f12;
+      --card-bg: #161a22;
+      --gold-primary: #d4af37;
+      --gold-hover: #f3e5ab;
+      --text-main: #f0f3f6;
+      --text-muted: #919eab;
+      --border-color: #262c36;
+      --accent-red: #e63946;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .quiz-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 680px;
+      padding: 32px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quiz-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-primary), #8a7322);
+    }
+
+    .header-tag {
+      display: inline-block;
+      color: var(--gold-primary);
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1, h2 {
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .quiz-intro p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background-color: var(--border-color);
+      border-radius: 3px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--gold-primary);
+      transition: width 0.3s ease;
+    }
+
+    .question-title {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 16px 20px;
+      border-radius: 10px;
+      text-align: right;
+      cursor: pointer;
+      font-size: 0.98rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--gold-primary);
+      color: var(--gold-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold {
+      background: var(--gold-primary);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-hover);
+    }
+
+    /* صفحه نتیجه */
+    .result-card {
+      text-align: center;
+      display: none;
+    }
+
+    .result-badge {
+      font-size: 2rem;
+      color: var(--gold-primary);
+      margin: 16px 0 8px 0;
+      font-weight: 800;
+    }
+
+    .result-desc {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      text-align: justify;
+    }
+
+    .episode-recommendation {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px dashed var(--gold-primary);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: right;
+    }
+
+    .episode-recommendation h3 {
+      color: var(--gold-primary);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .platform-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .platform-btn {
+      background: var(--border-color);
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .platform-btn:hover {
+      background: #323a47;
+      color: var(--gold-primary);
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <!-- بخش معرفی اولیه -->
+    <div id="intro-screen" class="quiz-intro">
+      <span class="header-tag">ایسم‌کست | IsmCast</span>
+      <h1>کدام مکتب فکری بر ذهن شما حاکم است؟</h1>
+      <p>در جهان نبرد ایدئولوژی‌ها، نگاه شما به آزادی، قدرت، جامعه و فردیت کجای خط‌کشی‌های سیاسی و فلسفی قرار می‌گیرد؟ با پاسخ به ۵ سوال چالش‌برانگیز، قطب‌نمای فکری خود را کشف کنید.</p>
+      <button class="btn-gold" onclick="startQuiz()">شروع تست قطب‌نمای ایدئولوژیک</button>
+    </div>
+
+    <!-- بخش نوار پیشرفت و سوالات -->
+    <div id="quiz-screen" class="hidden">
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div class="question-title" id="question-text">متن سوال اینجا قرار می‌گیرد...</div>
+      <div class="options-grid" id="options-container"></div>
+    </div>
+
+    <!-- بخش نتیجه تست -->
+    <div id="result-screen" class="result-card">
+      <span class="header-tag">تحلیل قطب‌نمای فکری شما</span>
+      <div id="result-title" class="result-badge">سوسیال دموکراسی</div>
+      <p id="result-description" class="result-desc"></p>
+
+      <div class="episode-recommendation">
+        <h3 id="rec-ep-title">🎧 پیشنهاد ویژه ایسم‌کست برای شما</h3>
+        <p id="rec-ep-desc" style="color: var(--text-main); font-size: 0.95rem;"></p>
+        
+        <div class="platform-links">
+          <a href="#" class="platform-btn" target="_blank">شنیدن در Castbox</a>
+          <a href="#" class="platform-btn" target="_blank">شنیدن در Spotify</a>
+          <a href="#" class="platform-btn" target="_blank">Apple Podcasts</a>
+        </div>
+      </div>
+
+      <button class="btn-gold" onclick="resetQuiz()">پاسخ مجدد به سوالات</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "۱. اگر جامعه با بحران شدید اقتصادی و نابرابری مواجه شود، اولویت اصلی دولت باید چه باشد؟",
+        options: [
+          { text: "دخالت مستقیم، توزیع ثروت و تضمین رفاه و خدمات همگانی برای همه.", ism: "socialism" },
+          { text: "عدم مداخله، حفظ بازار آزاد و احترام به مالکیت خصوصی فردی.", ism: "liberalism" },
+          { text: "ارتقای اقتدار ملی، انسجام کل جامعه و اولویت دادن به منافع میهن.", ism: "fascism" },
+          { text: "انحلال خود دولت و سپردن اداره امور به انجمن‌های داوطلبانه مردمی.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۲. مرز میان «آزادی فردی» و «صلح و امنیت عمومی» را چگونه تعیین می‌کنید؟",
+        options: [
+          { text: "آزادی بیان و عمل فردی مطلق است مگر آنکه مستقیماً به دیگری آسیب بزند.", ism: "liberalism" },
+          { text: "آزادی واقعی زمانی معنا دارد که همه افراد از نظر اقتصادی و اجتماعی برابر باشند.", ism: "socialism" },
+          { text: "امنیت و عظمت جامعه بر هر نوع آزادی فردیِ آشفته‌کننده ارجحیت دارد.", ism: "fascism" },
+          { text: "هرگونه ساختار قدرتی که برای فرد تعیین تکلیف کند، نامشروع است.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۳. موثرترین راه برای اصلاح ساختارهای معیوب جامعه چیست؟",
+        options: [
+          { text: "اصلاحات نهادی، قانون‌گذاری دموکراتیک و حفاظت از حقوق بشر.", ism: "liberalism" },
+          { text: "تغییر بنیادی در ساختارهای تولیدی و اقتصادی به نفع طبقات محروم.", ism: "socialism" },
+          { text: "بازگشت به قدرت واحد، رهبری مقتدر و نظم ریشه‌دار ملی.", ism: "fascism" },
+          { text: "نابود کردن ساختارهای متمرکز قدرت و خودسازمان‌دهی محلی.", ism: "anarchism" }
+        ]
+      }
+    ];
+
+    const resultsData = {
+      socialism: {
+        title: "چپ‌گرا / سوسیالیسم یا عدالت‌محوری",
+        desc: "دیدگاه شما بر برابری اجتماعی، توزیع عادلانه ثروت و مسئولیت جمعی تاکید دارد. شما معتقدید که آزادی بدون امنیت اقتصادی و رفاه پایه، ابزاری تهی است.",
+        epTitle: "اپیزود پیشنهادی: نبرد سوسیالیسم و سرمایه‌داری",
+        epDesc: "در فصل اول ایسم‌کست بررسی کرده‌ایم که چطور آرمان برابری خواهان، جهان مدرن را تکان داد و ریشه‌های تاریخی سوسیالیسم کجاست."
+      },
+      liberalism: {
+        title: "لیبرالیسم / آزادی‌خواهی فردی",
+        desc: "شما برای حقوق فردی، آزادی بیان، بازار آزاد و تکثرگرایی ارزش بالایی قائل هستید. نگاه شما دولت را خادمی محدود برای حفظ حقوق شهروندان می‌داند.",
+        epTitle: "اپیزود پیشنهادی: لیبرالیسم و آزادی‌های فردی",
+        epDesc: "در این قسمت از ایسم‌کست، از سیر تحول اندیشه لیبرالیسم از جان لاک تا بازار آزاد مدرن گفته‌ایم."
+      },
+      fascism: {
+        title: "کلیت‌گرایی / تمامیت‌خواهی ملی",
+        desc: "نگرش شما نظم، انسجام یکپارچه ملی و اقتدار مرکزی را شالوده بقا و شکوه جامعه می‌داند و منافع جمع را بر خواسته فرد ارجح می‌شمارد.",
+        epTitle: "اپیزود پیشنهادی: آناتومی فاشیسم و توتالیتاریسم",
+        epDesc: "چگونه ایدئولوژی‌های تمامیت‌خواه در قرن بیستم شکل گرفتند؟ در این اپیزود ایسم‌کست، مکانیزم کنترل و اقتدار را تحلیل می‌کنیم."
+      },
+      anarchism: {
+        title: "آنارشیسم / اقتدارزدایی و خودمختاری",
+        desc: "شما به ساختارهای متمرکز قدرت و دولت‌ها بی‌اعتماد هستید و جامعه آرمانی را بر پایه همکاری داوطلبانه و خودمختاری افراد می‌بینید.",
+        epTitle: "اپیزود پیشنهادی: آنارشیسم؛ نظم بدون دولت",
+        epDesc: "آیا جامعه بدون ساختار حاکمیتی ممکن است؟ در این قسمت ایسم‌کست، ریشه‌های فلسفی آنارشیسم و نقد آن بر دولت را واکاوی کرده‌ایم."
+      }
+    };
+
+    let currentQuestion = 0;
+    let scores = { socialism: 0, liberalism: 0, fascism: 0, anarchism: 0 };
+
+    function startQuiz() {
+      document.getElementById('intro-screen').classList.add('hidden');
+      document.getElementById('quiz-screen').classList.remove('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('question-text').innerText = q.question;
+      
+      const progress = ((currentQuestion) / questions.length) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt.ism);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(ism) {
+      scores[ism]++;
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-screen').classList.add('hidden');
+      document.getElementById('result-screen').style.display = 'block';
+
+      // یافتن بیشترین امتیاز
+      let topIsm = 'liberalism';
+      let maxScore = -1;
+      for (const [ism, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          topIsm = ism;
+        }
+      }
+
+      const res = resultsData[topIsm];
+      document.getElementById('result-title').innerText = res.title;
+      document.getElementById('result-description').innerText = res.desc;
+      document.getElementById('rec-ep-title').innerText = res.epTitle;
+      document.getElementById('rec-ep-desc').innerText = res.epDesc;
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      scores = { socialism: 0, liberalism: 0, fascism: 0, anarchism: 0 };
+      document.getElementById('result-screen').style.display = 'none';
+      document.getElementById('intro-screen').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
