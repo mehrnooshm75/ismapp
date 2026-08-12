@@ -171,7 +171,6 @@
       font-size: 0.95rem;
     }
 
-    /* استایل‌های نمودار قطب‌نما */
     .compass-wrapper {
       margin: 20px auto 28px auto;
       max-width: 320px;
@@ -202,10 +201,10 @@
       opacity: 0.85;
     }
 
-    .q-tl { background: rgba(239, 83, 80, 0.15); color: #ef5350; } /* چپ - اقتدارگرا */
-    .q-tr { background: rgba(66, 165, 245, 0.15); color: #42a5f5; } /* راست - اقتدارگرا */
-    .q-bl { background: rgba(102, 187, 106, 0.15); color: #66bb6a; } /* چپ - آزادی‌خواه */
-    .q-br { background: rgba(255, 167, 38, 0.15); color: #ffa726; } /* راست - آزادی‌خواه */
+    .q-tl { background: rgba(239, 83, 80, 0.15); color: #ef5350; }
+    .q-tr { background: rgba(66, 165, 245, 0.15); color: #42a5f5; }
+    .q-bl { background: rgba(102, 187, 106, 0.15); color: #66bb6a; }
+    .q-br { background: rgba(255, 167, 38, 0.15); color: #ffa726; }
 
     .axis-v {
       position: absolute;
@@ -260,12 +259,34 @@
       border-radius: 12px;
       margin-bottom: 24px;
       text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ep-card-body {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .ep-cover {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+      background-color: #202530;
+    }
+
+    .ep-info {
+      flex: 1;
     }
 
     .episode-recommendation h3 {
       color: var(--gold-primary);
       font-size: 1.05rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .platform-links {
@@ -273,7 +294,7 @@
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 12px;
     }
 
     .platform-btn {
@@ -283,7 +304,7 @@
       padding: 10px 18px;
       border-radius: 6px;
       font-size: 0.88rem;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
 
     .platform-btn:hover {
@@ -300,7 +321,7 @@
     <div id="intro-screen" class="quiz-intro">
       <span class="header-tag">ایسم‌کست | IsmCast</span>
       <h1>کدام مکتب فکری بر ذهن شما حاکم است؟</h1>
-      <p>این تست شامل <strong>۱۵ سوال چالش‌برانگیز</strong> است. پس از پاسخگویی، جایگاه شما دقیقاً روی <strong>نمودار ۴گانه قطب‌نمای ایدئولوژیک</strong> مشخص شده و اپیزود مرتبط از ایسم‌کست پیشنهاد داده می‌شود.</p>
+      <p>این تست شامل <strong>۱۵ سوال چالش‌برانگیز</strong> درباره نبرد ایدئولوژی‌هاست. پس از پاسخگویی، جایگاه شما دقیقاً روی <strong>نمودار ۴گانه قطب‌نمای ایدئولوژیک</strong> مشخص شده و اپیزود مرتبط از فصل اول ایسم‌کست به شما پیشنهاد داده می‌شود.</p>
       <button class="btn-gold" onclick="startQuiz()">شروع تست ۱۵ سوالی</button>
     </div>
 
@@ -320,7 +341,6 @@
       <span class="header-tag">تحلیل قطب‌نمای فکری شما</span>
       <div id="result-title" class="result-badge"></div>
       
-      <!-- نمودار بصری دو محوره -->
       <div class="compass-wrapper">
         <span class="axis-label label-top">اقتدارگرایی</span>
         <span class="axis-label label-bottom">آزادی‌خواهی</span>
@@ -330,10 +350,10 @@
         <div class="compass-box">
           <div class="axis-v"></div>
           <div class="axis-h"></div>
-          <div class="quadrant q-tl">چپ اقتدارگرا<br>(سوسیالیسم دولتی)</div>
-          <div class="quadrant q-tr">راست اقتدارگرا<br>(فاشیسم / ملی‌گرایی)</div>
-          <div class="quadrant q-bl">چپ آزادی‌خواه<br>(سوسیالیسم آزادی‌خواه / آنارشیسم)</div>
-          <div class="quadrant q-br">راست آزادی‌خواه<br>(لیبرالیسم / بازار آزاد)</div>
+          <div class="quadrant q-tl">چپ اقتدارگرا<br>(مارکسیسم / کمونیسم)</div>
+          <div class="quadrant q-tr">راست اقتدارگرا<br>(فاشیسم / نازیسم)</div>
+          <div class="quadrant q-bl">چپ آزادی‌خواه<br>(سوسیال‌دموکراسی / آنارشیسم)</div>
+          <div class="quadrant q-br">راست آزادی‌خواه<br>(لیبرالیسم / کاپیتالیسم)</div>
           <div id="compass-dot" class="compass-dot"></div>
         </div>
       </div>
@@ -341,13 +361,18 @@
       <p id="result-description" class="result-desc"></p>
 
       <div class="episode-recommendation">
-        <h3 id="rec-ep-title">🎧 پیشنهاد ویژه ایسم‌کست برای شما</h3>
-        <p id="rec-ep-desc" style="color: var(--text-main); font-size: 0.95rem;"></p>
+        <div class="ep-card-body">
+          <img id="rec-ep-img" src="" alt="کاور اپیزود" class="ep-cover" onerror="this.style.display='none'">
+          <div class="ep-info">
+            <h3 id="rec-ep-title">🎧 پیشنهاد ویژه ایسم‌کست</h3>
+            <p id="rec-ep-desc" style="color: var(--text-main); font-size: 0.9rem; line-height: 1.6;"></p>
+          </div>
+        </div>
         
         <div class="platform-links">
-          <a href="https://castbox.fm" class="platform-btn" target="_blank">شنیدن در Castbox</a>
-          <a href="https://spotify.com" class="platform-btn" target="_blank">شنیدن در Spotify</a>
-          <a href="https://podcasts.apple.com" class="platform-btn" target="_blank">Apple Podcasts</a>
+          <a id="link-castbox" href="#" class="platform-btn" target="_blank">شنیدن در Castbox</a>
+          <a id="link-spotify" href="#" class="platform-btn" target="_blank">Spotify</a>
+          <a id="link-apple" href="#" class="platform-btn" target="_blank">Apple Podcasts</a>
         </div>
       </div>
 
@@ -494,30 +519,39 @@
       }
     ];
 
+    // اطلاعات دقیق اپیزودهای فصل اول ایسم‌کست
     const resultsData = {
       socialism: {
-        title: "برابری‌خواهی / سوسیالیسم یا چپ‌گرایی",
+        title: "برابری‌خواهی / سوسیالیسم و دولت رفاه",
         desc: "نگاه شما بر پایه عدالت اجتماعی، کاهش شکاف طبقاتی و مسئولیت جمعی شکل گرفته است. شما معتقدید آزادی واقعی بدون تضمین رفاه و امنیت اقتصادی برای همه افراد جامعه، شعاری بیش نیست.",
-        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود نبرد سوسیالیسم و سرمایه‌داری",
-        epDesc: "در این اپیزود ریشه‌های تاریخی آرمان برابری، سیر تحول سوسیالیسم و مواجهه آن با نظام بازار واکاوی شده است."
+        epTitle: "قسمت پنجم: سوسیالیسم",
+        epDesc: "سوسیالیسم چگونه کت‌وشلوار پوشید، وارد پارلمان شد و به جای نابودیِ نظام‌های سرمایه‌داری، هیولای کاپیتالیسم را رام کرد؟ بررسی ایده بازتوزیع ثروت، دولت رفاه و مدل نوردیک.",
+        castbox: "https://castbox.fm/vi/953938951",
+        cover: "ep5.png"
       },
       liberalism: {
-        title: "آزادی‌خواهی فردی / لیبرالیسم",
-        desc: "شما برای حقوق فردی، تکثرگرایی، آزادی بیان و بازار آزاد بالاترین ارزش را قائلید. از نظر شما دولت باید ابزاری محدود برای حفظ قانون باشد، نه تعیین‌کننده مسیر زندگی افراد.",
-        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود سیر تحول اندیشه لیبرالیسم",
-        epDesc: "در این قسمت بررسی کرده‌ایم که چگونه اندیشه آزادی فردی از جان لاک تا عصر مدرن شکل گرفت و چه چالش‌هایی روبروی آن است."
+        title: "آزادی‌خواهی فردی / لیبرالیسم و بازار آزاد",
+        desc: "شما برای حقوق فردی، تکثرگرایی، آزادی بیان و حقوق طبیعی بالاترین ارزش را قائلید. از نظر شما دولت باید ابزاری محدود برای حفظ قانون باشد، نه تعیین‌کننده مسیر زندگی افراد.",
+        epTitle: "قسمت اول: لیبرالیسم",
+        epDesc: "لیبرالیسم از کجا آمد و چرا به یکی از مهم‌ترین ایده‌های دنیای مدرن تبدیل شد؟ بررسی ریشه‌های آزادی فردی، حقوق طبیعی و محدود کردن قدرت دولت.",
+        castbox: "https://castbox.fm/vi/942759884",
+        cover: "ep1.png"
       },
       fascism: {
         title: "کلیت‌گرایی / اقتدارگرایی و نظم ملی",
         desc: "دیدگاه شما اقتدار مرکزی، نظم، انسجام یکپارچه جامعه و شکوه ملی را شالوده بقای کشور می‌داند و منافع کل جامعه را بر تمایلات فردی مقدم می‌شمارد.",
-        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود آناتومی فاشیسم و تمامیت‌خواهی",
-        epDesc: "چگونه ایدئولوژی‌های اقتدارگرا در قرن بیستم متولد شدند؟ در این اپیزود مکانیزم‌های کنترل، نظم و اقتدار ملی را تحلیل می‌کنیم."
+        epTitle: "قسمت هشتم: فاشیسم",
+        epDesc: "چگونه یک ملت، آزادی را با دستان خودش به یک دیکتاتور واگذار می‌کند؟ بررسی ایتالیای پس از جنگ، بنیتو موسولینی، مفهوم دولت مقدس و روان‌شناسی توده‌ها.",
+        castbox: "https://castbox.fm/vi/972931559",
+        cover: "ep8.png"
       },
       anarchism: {
         title: "اقتدارزدایی / آنارشیسم و خودمختاری",
         desc: "شما به تمرکز قدرت و نهادهای اجبارکننده مانند دولت بی‌اعتماد هستید. جامعه آرمانی از نظر شما بر پایه همکاری داوطلبانه، خودمختاری محلی و حذف سلطه بنا می‌شود.",
-        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود آنارشیسم؛ نظم بدون دولت",
-        epDesc: "آیا نظم اجتماعی بدون وجود ساختار حاکمیت متمرکز ممکن است؟ در این قسمت ریشه‌های فلسفی آنارشیسم واکاوی می‌شود."
+        epTitle: "قسمت یازدهم: آنارشیسم",
+        epDesc: "بررسی تفکر اقتدارزدایی، حذف ساختارهای متمرکز قدرت و بررسی امکان‌پذیری جامعه‌ای خودسازمان‌ده بر پایه همیاری داوطلبانه.",
+        castbox: "https://castbox.fm/channels/IsmCast", // لینک عمومی در صورت عدم اختصاص لینک مجزا
+        cover: "ep11.png"
       }
     };
 
@@ -569,7 +603,6 @@
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').style.display = 'block';
 
-      // تعیین ایدئولوژی غالب
       let topIsm = 'liberalism';
       let maxScore = -1;
       for (const [ism, score] of Object.entries(scores)) {
@@ -582,19 +615,23 @@
       const res = resultsData[topIsm];
       document.getElementById('result-title').innerText = res.title;
       document.getElementById('result-description').innerText = res.desc;
+      
+      // تنظیمات کارت اپیزود
       document.getElementById('rec-ep-title').innerText = res.epTitle;
       document.getElementById('rec-ep-desc').innerText = res.epDesc;
+      document.getElementById('link-castbox').href = res.castbox;
+      
+      const imgElem = document.getElementById('rec-ep-img');
+      imgElem.src = res.cover;
+      imgElem.style.display = 'block';
 
-      // محاسبه مختصات نقطه روی نمودار قطب‌نما
-      // x: اقتصاد (چپ = منفی، راست = مثبت)
-      // y: اجتماع (اقتدارگرا = مثبت، آزادی‌خواه = منفی)
+      // محاسبه مختصات جهت نمایش نقطه روی نمودار
       const total = questions.length;
-      const xVal = (scores.liberalism - scores.socialism) / total; // محدوده -1 تا 1
-      const yVal = (scores.fascism - scores.anarchism) / total;    // محدوده -1 تا 1
+      const xVal = (scores.liberalism - scores.socialism) / total;
+      const yVal = (scores.fascism - scores.anarchism) / total;
 
-      // تبدیل مختصات به درصد برای قرارگیری در CSS (از 10% تا 90% کادر)
       const dotX = 50 + (xVal * 40);
-      const dotY = 50 - (yVal * 40); // معکوس چون Y در CSS به سمت پایین افزایش می‌یابد
+      const dotY = 50 - (yVal * 40);
 
       const dot = document.getElementById('compass-dot');
       dot.style.left = dotX + '%';
