@@ -14,7 +14,6 @@
       --text-main: #f0f3f6;
       --text-muted: #919eab;
       --border-color: #262c36;
-      --accent-red: #e63946;
     }
 
     * {
@@ -39,7 +38,7 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       width: 100%;
-      max-width: 680px;
+      max-width: 720px;
       padding: 32px;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
       position: relative;
@@ -49,9 +48,7 @@
     .quiz-container::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--gold-primary), #8a7322);
     }
@@ -66,15 +63,25 @@
       margin-bottom: 8px;
     }
 
-    h1, h2 {
+    h1 {
       color: var(--text-main);
       margin-bottom: 16px;
+      font-size: 1.6rem;
     }
 
     .quiz-intro p {
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.8;
       margin-bottom: 24px;
+    }
+
+    .progress-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .progress-bar-container {
@@ -94,7 +101,7 @@
     }
 
     .question-title {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       line-height: 1.6;
       margin-bottom: 24px;
       font-weight: 600;
@@ -115,7 +122,8 @@
       border-radius: 10px;
       text-align: right;
       cursor: pointer;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
       transition: all 0.2s ease;
     }
 
@@ -143,16 +151,15 @@
       background: var(--gold-hover);
     }
 
-    /* صفحه نتیجه */
     .result-card {
       text-align: center;
       display: none;
     }
 
     .result-badge {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--gold-primary);
-      margin: 16px 0 8px 0;
+      margin: 16px 0 12px 0;
       font-weight: 800;
     }
 
@@ -174,7 +181,7 @@
 
     .episode-recommendation h3 {
       color: var(--gold-primary);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 8px;
     }
 
@@ -192,7 +199,7 @@
       text-decoration: none;
       padding: 10px 18px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       transition: background 0.2s;
     }
 
@@ -207,27 +214,28 @@
 <body>
 
   <div class="quiz-container">
-    <!-- بخش معرفی اولیه -->
     <div id="intro-screen" class="quiz-intro">
       <span class="header-tag">ایسم‌کست | IsmCast</span>
       <h1>کدام مکتب فکری بر ذهن شما حاکم است؟</h1>
-      <p>در جهان نبرد ایدئولوژی‌ها، نگاه شما به آزادی، قدرت، جامعه و فردیت کجای خط‌کشی‌های سیاسی و فلسفی قرار می‌گیرد؟ با پاسخ به ۵ سوال چالش‌برانگیز، قطب‌نمای فکری خود را کشف کنید.</p>
-      <button class="btn-gold" onclick="startQuiz()">شروع تست قطب‌نمای ایدئولوژیک</button>
+      <p>این تست شامل <strong>۱۵ سوال چالش‌برانگیز</strong> درباره اقتصاد، آزادی، جامعه و قدرت است تا قطب‌نمای ایدئولوژیک شما را تحلیل کرده و اپیزودهای مرتبط از فصل «نبرد ایدئولوژی‌ها» را پیشنهاد دهد.</p>
+      <button class="btn-gold" onclick="startQuiz()">شروع تست ۱۵ سوالی</button>
     </div>
 
-    <!-- بخش نوار پیشرفت و سوالات -->
     <div id="quiz-screen" class="hidden">
+      <div class="progress-container">
+        <span id="question-count">سوال ۱ از ۱۵</span>
+        <span id="progress-percent">۰٪</span>
+      </div>
       <div class="progress-bar-container">
         <div id="progress-bar" class="progress-bar"></div>
       </div>
-      <div class="question-title" id="question-text">متن سوال اینجا قرار می‌گیرد...</div>
+      <div class="question-title" id="question-text"></div>
       <div class="options-grid" id="options-container"></div>
     </div>
 
-    <!-- بخش نتیجه تست -->
     <div id="result-screen" class="result-card">
       <span class="header-tag">تحلیل قطب‌نمای فکری شما</span>
-      <div id="result-title" class="result-badge">سوسیال دموکراسی</div>
+      <div id="result-title" class="result-badge"></div>
       <p id="result-description" class="result-desc"></p>
 
       <div class="episode-recommendation">
@@ -235,9 +243,9 @@
         <p id="rec-ep-desc" style="color: var(--text-main); font-size: 0.95rem;"></p>
         
         <div class="platform-links">
-          <a href="#" class="platform-btn" target="_blank">شنیدن در Castbox</a>
-          <a href="#" class="platform-btn" target="_blank">شنیدن در Spotify</a>
-          <a href="#" class="platform-btn" target="_blank">Apple Podcasts</a>
+          <a href="https://castbox.fm" class="platform-btn" target="_blank">شنیدن در Castbox</a>
+          <a href="https://spotify.com" class="platform-btn" target="_blank">شنیدن در Spotify</a>
+          <a href="https://podcasts.apple.com" class="platform-btn" target="_blank">Apple Podcasts</a>
         </div>
       </div>
 
@@ -250,56 +258,164 @@
       {
         question: "۱. اگر جامعه با بحران شدید اقتصادی و نابرابری مواجه شود، اولویت اصلی دولت باید چه باشد؟",
         options: [
-          { text: "دخالت مستقیم، توزیع ثروت و تضمین رفاه و خدمات همگانی برای همه.", ism: "socialism" },
-          { text: "عدم مداخله، حفظ بازار آزاد و احترام به مالکیت خصوصی فردی.", ism: "liberalism" },
-          { text: "ارتقای اقتدار ملی، انسجام کل جامعه و اولویت دادن به منافع میهن.", ism: "fascism" },
-          { text: "انحلال خود دولت و سپردن اداره امور به انجمن‌های داوطلبانه مردمی.", ism: "anarchism" }
+          { text: "دخالت مستقیم، توزیع ثروت و تضمین رفاه همگانی برای همه.", ism: "socialism" },
+          { text: "حفظ بازار آزاد، عدم مداخله و احترام به مالکیت خصوصی.", ism: "liberalism" },
+          { text: "ارتقای اقتدار ملی، انسجام کل جامعه و اولویت منافع میهن.", ism: "fascism" },
+          { text: "انحلال ساختار دولتی و سپردن کارها به انجمن‌های داوطلبانه.", ism: "anarchism" }
         ]
       },
       {
         question: "۲. مرز میان «آزادی فردی» و «صلح و امنیت عمومی» را چگونه تعیین می‌کنید؟",
         options: [
-          { text: "آزادی بیان و عمل فردی مطلق است مگر آنکه مستقیماً به دیگری آسیب بزند.", ism: "liberalism" },
-          { text: "آزادی واقعی زمانی معنا دارد که همه افراد از نظر اقتصادی و اجتماعی برابر باشند.", ism: "socialism" },
-          { text: "امنیت و عظمت جامعه بر هر نوع آزادی فردیِ آشفته‌کننده ارجحیت دارد.", ism: "fascism" },
+          { text: "آزادی بیان و عمل فردی اصل است مگر آنکه مستقیماً به دیگری آسیب بزند.", ism: "liberalism" },
+          { text: "آزادی واقعی زمانی معنا دارد که همه افراد از نظر اقتصادی برابر باشند.", ism: "socialism" },
+          { text: "امنیت و عظمت جامعه بر هر نوع آزادی فردی ارجحیت دارد.", ism: "fascism" },
           { text: "هرگونه ساختار قدرتی که برای فرد تعیین تکلیف کند، نامشروع است.", ism: "anarchism" }
         ]
       },
       {
         question: "۳. موثرترین راه برای اصلاح ساختارهای معیوب جامعه چیست؟",
         options: [
-          { text: "اصلاحات نهادی، قانون‌گذاری دموکراتیک و حفاظت از حقوق بشر.", ism: "liberalism" },
-          { text: "تغییر بنیادی در ساختارهای تولیدی و اقتصادی به نفع طبقات محروم.", ism: "socialism" },
-          { text: "بازگشت به قدرت واحد، رهبری مقتدر و نظم ریشه‌دار ملی.", ism: "fascism" },
+          { text: "اصلاحات نهادی، قانون‌گذاری دموکراتیک و حفاظت از حقوق فردی.", ism: "liberalism" },
+          { text: "تغییر بنیادی در ساختارهای تولیدی به نفع طبقات محروم.", ism: "socialism" },
+          { text: "بازگشت به قدرت واحد، رهبری مقتدر و نظم ریشه‌دار.", ism: "fascism" },
           { text: "نابود کردن ساختارهای متمرکز قدرت و خودسازمان‌دهی محلی.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۴. نگاه شما به مفهوم «مالکیت خصوصی» چیست؟",
+        options: [
+          { text: "حق طبیعی و دست‌نخورده هر فرد که ضامن آزادی اوست.", ism: "liberalism" },
+          { text: "ابزاری که اگر کنترل نشود باعث استثمار طبقات کم‌درآمد می‌شود.", ism: "socialism" },
+          { text: "مالکیت زمانی محترم است که در خدمت اهداف و اقتدار ملی باشد.", ism: "fascism" },
+          { text: "مالکیت بر منابع بنیادی باید اشتراکی و بدون انحصار فردی یا دولتی باشد.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۵. نقش «سنّت، هویت ملی و تاریخ» در اداره کشور باید چگونه باشد؟",
+        options: [
+          { text: "پایه اصلی انسجام، غرور و هویت جمعی جامعه است.", ism: "fascism" },
+          { text: "تا جایی محترم است که با حقوق و آزادی‌های مدرن فردی تعارض نداشته باشد.", ism: "liberalism" },
+          { text: "غالباً ابزاری برای حفظ ساختارهای قدرت طبقاتی قدیمی است.", ism: "socialism" },
+          { text: "مرزهای ملی و سنت‌های تحمیلی، مانع همبستگی آزادانه انسان‌ها هستند.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۶. به نظر شما «عدالت» دقیقاً به چه معناست؟",
+        options: [
+          { text: "برابری فرصت‌ها و قانون یکسان برای همه شهروندان.", ism: "liberalism" },
+          { text: "برابری در نتیجه و رفاه، و کاهش شکاف طبقاتی.", ism: "socialism" },
+          { text: "ادای حق جامعه با خدمت هماهنگ همه اجزا به هدف والای ملی.", ism: "fascism" },
+          { text: "حذف کامل روابط قدرت و سلطه‌گری انسان بر انسان.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۷. در صورت بروز ناآرامی سیاسی، واکنش حاکمیت باید چگونه باشد؟",
+        options: [
+          { text: "استفاده قاطع از تمام ابزارهای قدرتی برای برقراری مجدد نظم.", ism: "fascism" },
+          { text: "تضمین حق اعتراض و حل موضوع از طریق گفتگوی قانونی.", ism: "liberalism" },
+          { text: "بررسی ریشه‌های اقتصادی و نابرابری‌های عامل اعتراض.", ism: "socialism" },
+          { text: "اعتراضات نشان‌دهنده ناکارآمدی ذاتی اصل نهاد دولت است.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۸. آموزش و بهداشت و درمان باید چگونه اداره شوند؟",
+        options: [
+          { text: "کاملاً رایگان و تحت کنترل کامل دولت برای تضمین برابری.", ism: "socialism" },
+          { text: "توسط بخش خصوصی و رقابتی، با حداقل مداخله استانداردگذاری دولت.", ism: "liberalism" },
+          { text: "تحت هدایت استراتژیک دولت برای پرورش شهروندان کارآمد و وفادار.", ism: "fascism" },
+          { text: "توسط شوراهای محلی و غیرمتمرکز به دور از بوروکراسی دولتی.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۹. اصلی‌ترین خطر برای آینده بشریت چیست؟",
+        options: [
+          { text: "تمرکز بیش از حد قدرت در دست دولت و نابودی آزادی‌های فردی.", ism: "liberalism" },
+          { text: "سرمایه‌داری لگام‌گسیخته و نابرابری شدید طبقاتی.", ism: "socialism" },
+          { text: "انحطاط اخلاقی، تضعیف هویت ملی و بی‌نظمی در جامعه.", ism: "fascism" },
+          { text: "وجود نهادهای اجبارکننده قدرتی مانند دولت‌ها و مرزها.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۰. نسبت «فرد» و «جامعه» را چگونه ارزیابی می‌کنید؟",
+        options: [
+          { text: "فرد اصالت دارد و جامعه صرفاً مجموعه‌ای از افراد مستقل است.", ism: "liberalism" },
+          { text: "جامعه ارگانیسمی واحد است که فرد معنای خود را در خدمت به آن می‌یابد.", ism: "fascism" },
+          { text: "فرد و جامعه متقابلاً بر هم اثر می‌گذارند، اما رشد فرد در رفاه جمعی است.", ism: "socialism" },
+          { text: "ارتباطات فرد و جامعه باید کاملاً داوطلبانه و بدون اجبار اجباری باشد.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۱. تجارت بین‌الملل و مرزها باید دارای چه سیاستی باشند؟",
+        options: [
+          { text: "تجارت کاملاً آزاد، برداشتن تعرفه‌ها و جهانی‌شدن بازارها.", ism: "liberalism" },
+          { text: "کنترل تجارت خارجی برای حمایت از صنایع و نیروهای کار داخلی.", ism: "socialism" },
+          { text: "خودکفایی اقتصادی ملی و کنترل شدید مرزها.", ism: "fascism" },
+          { text: "حذف کامل مرزهای جغرافیایی و اعتباری سیاسی.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۲. مالیات‌گیری از شهروندان از نظر شما چه حکمی دارد؟",
+        options: [
+          { text: "ابزار ضروری برای بازتوزیع ثروت و ارائه خدمات عمومی.", ism: "socialism" },
+          { text: "شرّ لازمی که باید در حد دست‌کم برای وظایف پایه دولت نگه داشته شود.", ism: "liberalism" },
+          { text: "سهم پرداختی شهروند برای تقویت اقتدار و زیرساخت‌های کشور.", ism: "fascism" },
+          { text: "نوعی دست‌اندازی و مصادره اجباری توسط قدرت مرکزی.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۳. جرم و جنایت را بیشتر ناشی از چه عاملی می‌دانید؟",
+        options: [
+          { text: "فقر، نابرابری ساختاری و شرایط نامناسب اقتصادی-اجتماعی.", ism: "socialism" },
+          { text: "انتخاب نادرست شخص فرد و مسئولیت فردی او.", ism: "liberalism" },
+          { text: "ضعف در مجازات، نبود نظم سخت‌گیرانه و انحطاط اخلاقی.", ism: "fascism" },
+          { text: "قوانین اجباری و نابرابری‌های ایجادشده توسط خود قدرت‌ها.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۴. تکنولوژی و رسانه‌ها باید چگونه مدیریت شوند؟",
+        options: [
+          { text: "رقابت آزاد شرکت‌ها بدون نظارت محتوایی حکومت.", ism: "liberalism" },
+          { text: "نظارت برای جلوگیری از انحصار شرکت‌های بزرگ و سودجو.", ism: "socialism" },
+          { text: "هدایت رسانه‌ها برای حفظ امنیت ملی و روحیه‌بخشی جمعی.", ism: "fascism" },
+          { text: "شبکه‌های آزاد و غیرمتمرکز بدون قابلیت سانسور توسط قدرتمندان.", ism: "anarchism" }
+        ]
+      },
+      {
+        question: "۱۵. آرمان نهایی شما برای یک جامعه چیست؟",
+        options: [
+          { text: "جامعه‌ای بدون طبقه با برابری و رفاه کامل برای همگان.", ism: "socialism" },
+          { text: "جامعه‌ای برپایه تکثرگرایی، قانون‌مداری و حداکثر آزادی فردی.", ism: "liberalism" },
+          { text: "جامعه‌ای قدرتمند، باانسجام، یکپارچه و سرافراز در سطح جهان.", ism: "fascism" },
+          { text: "جامعه‌ای آزاد از هرگونه حاکمیت، متکی بر همیاری داوطلبانه.", ism: "anarchism" }
         ]
       }
     ];
 
     const resultsData = {
       socialism: {
-        title: "چپ‌گرا / سوسیالیسم یا عدالت‌محوری",
-        desc: "دیدگاه شما بر برابری اجتماعی، توزیع عادلانه ثروت و مسئولیت جمعی تاکید دارد. شما معتقدید که آزادی بدون امنیت اقتصادی و رفاه پایه، ابزاری تهی است.",
-        epTitle: "اپیزود پیشنهادی: نبرد سوسیالیسم و سرمایه‌داری",
-        epDesc: "در فصل اول ایسم‌کست بررسی کرده‌ایم که چطور آرمان برابری خواهان، جهان مدرن را تکان داد و ریشه‌های تاریخی سوسیالیسم کجاست."
+        title: "برابری‌خواهی / سوسیالیسم یا چپ‌گرایی",
+        desc: "نگاه شما بر پایه عدالت اجتماعی، کاهش شکاف طبقاتی و مسئولیت جمعی شکل گرفته است. شما معتقدید آزادی واقعی بدون تضمین رفاه و امنیت اقتصادی برای همه افراد جامعه، شعاری بیش نیست.",
+        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود نبرد سوسیالیسم و سرمایه‌داری",
+        epDesc: "در این اپیزود ریشه‌های تاریخی آرمان برابری، سیر تحول سوسیالیسم و مواجهه آن با نظام بازار واکاوی شده است."
       },
       liberalism: {
-        title: "لیبرالیسم / آزادی‌خواهی فردی",
-        desc: "شما برای حقوق فردی، آزادی بیان، بازار آزاد و تکثرگرایی ارزش بالایی قائل هستید. نگاه شما دولت را خادمی محدود برای حفظ حقوق شهروندان می‌داند.",
-        epTitle: "اپیزود پیشنهادی: لیبرالیسم و آزادی‌های فردی",
-        epDesc: "در این قسمت از ایسم‌کست، از سیر تحول اندیشه لیبرالیسم از جان لاک تا بازار آزاد مدرن گفته‌ایم."
+        title: "آزادی‌خواهی فردی / لیبرالیسم",
+        desc: "شما برای حقوق فردی، تکثرگرایی، آزادی بیان و بازار آزاد بالاترین ارزش را قائلید. از نظر شما دولت باید ابزاری محدود برای حفظ قانون باشد، نه تعیین‌کننده مسیر زندگی افراد.",
+        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود سیر تحول اندیشه لیبرالیسم",
+        epDesc: "در این قسمت بررسی کرده‌ایم که چگونه اندیشه آزادی فردی از جان لاک تا عصر مدرن شکل گرفت و چه چالش‌هایی روبروی آن است."
       },
       fascism: {
-        title: "کلیت‌گرایی / تمامیت‌خواهی ملی",
-        desc: "نگرش شما نظم، انسجام یکپارچه ملی و اقتدار مرکزی را شالوده بقا و شکوه جامعه می‌داند و منافع جمع را بر خواسته فرد ارجح می‌شمارد.",
-        epTitle: "اپیزود پیشنهادی: آناتومی فاشیسم و توتالیتاریسم",
-        epDesc: "چگونه ایدئولوژی‌های تمامیت‌خواه در قرن بیستم شکل گرفتند؟ در این اپیزود ایسم‌کست، مکانیزم کنترل و اقتدار را تحلیل می‌کنیم."
+        title: "کلیت‌گرایی / اقتدارگرایی و نظم ملی",
+        desc: "دیدگاه شما اقتدار مرکزی، نظم، انسجام یکپارچه جامعه و شکوه ملی را شالوده بقای کشور می‌داند و منافع کل جامعه را بر تمایلات فردی مقدم می‌شمارد.",
+        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود آناتومی فاشیسم و تمامیت‌خواهی",
+        epDesc: "چگونه ایدئولوژی‌های اقتدارگرا در قرن بیستم متولد شدند؟ در این اپیزود مکانیزم‌های کنترل، نظم و اقتدار ملی را تحلیل می‌کنیم."
       },
       anarchism: {
-        title: "آنارشیسم / اقتدارزدایی و خودمختاری",
-        desc: "شما به ساختارهای متمرکز قدرت و دولت‌ها بی‌اعتماد هستید و جامعه آرمانی را بر پایه همکاری داوطلبانه و خودمختاری افراد می‌بینید.",
-        epTitle: "اپیزود پیشنهادی: آنارشیسم؛ نظم بدون دولت",
-        epDesc: "آیا جامعه بدون ساختار حاکمیتی ممکن است؟ در این قسمت ایسم‌کست، ریشه‌های فلسفی آنارشیسم و نقد آن بر دولت را واکاوی کرده‌ایم."
+        title: "اقتدارزدایی / آنارشیسم و خودمختاری",
+        desc: "شما به تمرکز قدرت و نهادهای اجبارکننده مانند دولت بی‌اعتماد هستید. جامعه آرمانی از نظر شما بر پایه همکاری داوطلبانه، خودمختاری محلی و حذف سلطه بنا می‌شود.",
+        epTitle: "🎧 پیشنهاد ایسم‌کست: اپیزود آنارشیسم؛ نظم بدون دولت",
+        epDesc: "آیا نظم اجتماعی بدون وجود ساختار حاکمیت متمرکز ممکن است؟ در این قسمت ریشه‌های فلسفی آنارشیسم واکاوی می‌شود."
       }
     };
 
@@ -316,8 +432,13 @@
       const q = questions[currentQuestion];
       document.getElementById('question-text').innerText = q.question;
       
-      const progress = ((currentQuestion) / questions.length) * 100;
-      document.getElementById('progress-bar').style.width = progress + '%';
+      const total = questions.length;
+      const countText = `سوال ${currentQuestion + 1} از ${total}`;
+      const percent = Math.round(((currentQuestion) / total) * 100);
+      
+      document.getElementById('question-count').innerText = countText;
+      document.getElementById('progress-percent').innerText = percent + '٪';
+      document.getElementById('progress-bar').style.width = percent + '%';
 
       const optionsContainer = document.getElementById('options-container');
       optionsContainer.innerHTML = '';
@@ -346,7 +467,6 @@
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').style.display = 'block';
 
-      // یافتن بیشترین امتیاز
       let topIsm = 'liberalism';
       let maxScore = -1;
       for (const [ism, score] of Object.entries(scores)) {
